@@ -1,11 +1,33 @@
-<%= form_for(@post) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  <%= f.label :rating %>
-  <%= f.text_field :rating %>
-  <%= f.label :text, "Content" %>
-  <%= f.text_field :text %>
-  <%= f.label :image %>
-  <%= f.file_field :image%>
+<%= form_for(@post, html: { multipart: true }) do |f| %>
+  <% if @post.errors.any? %>
+    <div class="error-messages">
+      <% @post.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: "Give your post a title" %>
+  </p>
+  <p>
+    <%= f.label :wine_id, "Wine" %>
+    <%= f.collection_select :wine_id, Wine.all.order(:name), :id, :name, { prompt: "Select a wine" } %>
+    or <%= link_to 'add a new wine', new_wine_path %>
+  </p>
+  <p>
+    <%= f.label :rating, "Rating (1-10)" %>
+    <%= f.number_field :rating, min: 1, max: 10 %>
+  </p>
+  <p>
+    <%= f.label :text, "Tasting Notes" %>
+    <%= f.text_area :text, rows: 4, placeholder: "What did you think?" %>
+  </p>
+  <p>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </p>
+
   <%= f.submit %>
 <% end %>

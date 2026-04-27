@@ -2,26 +2,26 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   def new
-    @user = User.find(session[:user_id])
-    @post = Post.new({user_id: session[:user_id]})
+    @user = current_user
+    @post = Post.new(user_id: current_user.id)
   end
 
   def new_user_profile
-    @user = User.find(session[:user_id])
+    @user = current_user
     @posts = Post.all.order(created_at: 'ASC')
   end
 
   def edit
     @post = Post.find(params[:id])
+    authorize_owner!(@post)
   end
 
-  #Create a new post
   def create
-    @user = User.find(session[:user_id])
+    @user = current_user
     @post = @user.posts.new(post_params)
     if @post.save
       redirect_to "/posts/#{@post.id}"
@@ -32,28 +32,28 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    authorize_owner!(@post)
+    return if performed?
 
     if @post.update(post_params)
       redirect_to @post
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
+    authorize_owner!(@post)
+    return if performed?
 
-  redirect_to '/users'
+    @post.destroy
+    redirect_to '/users'
   end
 
   private
 
   def post_params
     params.require(:post).permit(:title, :text, :image, :rating, :user_id, :wine_id)
-  end
-
-  def comment_params
-      params.require(:comment).permit(:commenter, :body)
   end
 end

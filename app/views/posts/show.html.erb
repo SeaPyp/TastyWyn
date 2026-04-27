@@ -5,13 +5,21 @@
   <%= @post.title %>
 </p>
 
+<% if @post.wine.present? %>
+  <p>
+    <strong>Wine:</strong>
+    <%= link_to @post.wine.name, wine_path(@post.wine) %>
+    (<%= @post.wine.varietal %>, <%= @post.wine.vintage %>)
+  </p>
+<% end %>
+
 <p>
   <strong>Rating:</strong>
-  <%= @post.rating %>
+  <%= @post.rating %>/10
 </p>
 
 <p>
-  <%= image_tag @post.image.url(:large) %>
+  <%= image_tag @post.image.url(:large) if @post.image.present? %>
 </p>
 
 <p>
@@ -19,31 +27,30 @@
   <%= @post.text %>
 </p>
 
+<% if current_user == @post.user %>
+  <%= link_to 'Edit', edit_post_path(@post) %>
+  <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
   <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
-
-  <p>
-    <strong>Comment:</strong>
+    <strong><%= comment.user.first_name %> <%= comment.user.last_name %>:</strong>
     <%= comment.body %>
+    <% if current_user == comment.user %>
+      <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: 'Delete this comment?' } %>
+    <% end %>
   </p>
 <% end %>
 
 <h2>Add a comment:</h2>
 <%= form_for([@post, @post.comments.build]) do |f| %>
   <p>
-    <%= f.label :commenter %><br>
-    <%= f.text_field :commenter %>
+    <%= f.label :body, "Your comment" %><br>
+    <%= f.text_area :body, rows: 3 %>
   </p>
   <p>
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit %>
+    <%= f.submit "Post Comment" %>
   </p>
 <% end %>
 

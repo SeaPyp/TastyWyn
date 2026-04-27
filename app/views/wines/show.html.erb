@@ -1,2 +1,19 @@
-<h1>Wines#show</h1>
-<p>Find me in app/views/wines/show.html.erb</p>
+<h1><%= @wine.name %></h1>
+
+<p><strong>Varietal:</strong> <%= @wine.varietal %></p>
+<p><strong>Vintage:</strong> <%= @wine.vintage %></p>
+<p><strong>Origin:</strong> <%= @wine.origin %></p>
+<% if @wine.description.present? %>
+  <p><strong>Description:</strong> <%= @wine.description %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_wine_path(@wine) %>
+<%= link_to 'Delete', @wine, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Back to Wines', wines_path %>
+
+<% if @posts.any? %>
+  <h2>Posts featuring this wine</h2>
+  <% @posts.each do |post| %>
+    <p><%= link_to post.title, post_path(post) %> — rated <%= post.rating %>/10</p>
+  <% end %>
+<% end %>

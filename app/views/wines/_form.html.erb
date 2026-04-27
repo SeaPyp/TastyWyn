@@ -1,0 +1,32 @@
+<%= form_for(@wine) do |f| %>
+  <% if @wine.errors.any? %>
+    <div class="error-messages">
+      <% @wine.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "e.g. Chateau Margaux" %>
+  </p>
+  <p>
+    <%= f.label :varietal %>
+    <%= f.text_field :varietal, placeholder: "e.g. Cabernet Sauvignon" %>
+  </p>
+  <p>
+    <%= f.label :vintage %>
+    <%= f.number_field :vintage, placeholder: "e.g. 2018" %>
+  </p>
+  <p>
+    <%= f.label :origin %>
+    <%= f.text_field :origin, placeholder: "e.g. Bordeaux, France" %>
+  </p>
+  <p>
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 4, placeholder: "Tasting notes, aromas, etc." %>
+  </p>
+
+  <%= f.submit %>
+<% end %>

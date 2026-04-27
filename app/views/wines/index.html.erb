@@ -1,0 +1,33 @@
+<h1>Wines</h1>
+
+<%= link_to 'Add a Wine', new_wine_path %>
+
+<% if @wines.empty? %>
+  <p>No wines yet. Add one above!</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Varietal</th>
+        <th>Vintage</th>
+        <th>Origin</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @wines.each do |wine| %>
+        <tr>
+          <td><%= link_to wine.name, wine %></td>
+          <td><%= wine.varietal %></td>
+          <td><%= wine.vintage %></td>
+          <td><%= wine.origin %></td>
+          <td>
+            <%= link_to 'Edit', edit_wine_path(wine) %>
+            <%= link_to 'Delete', wine, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

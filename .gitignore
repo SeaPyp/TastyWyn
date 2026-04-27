@@ -21,3 +21,7 @@ wyntaste/log/
 wyntaste/config/database.yml
 *.secret*
 local_secret*
+
+# Elastic Beanstalk
+.elasticbeanstalk/*
+!.elasticbeanstalk/config.yml
