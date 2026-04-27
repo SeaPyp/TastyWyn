@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_wine!, only: [:edit, :update, :destroy]
 
   def index
     @wines = Wine.all.order(:name)
@@ -15,6 +16,8 @@ class WinesController < ApplicationController
 
   def create
     @wine = Wine.new(wine_params)
+    @wine.user = current_user
+
     if @wine.save
       redirect_to @wine, notice: "Wine was successfully added."
     else
@@ -42,6 +45,13 @@ class WinesController < ApplicationController
 
   def set_wine
     @wine = Wine.find(params[:id])
+  end
+
+  def authorize_wine!
+    unless @wine.user_id == current_user.id
+      flash[:alert] = "You are not authorized to do that."
+      redirect_to wines_path
+    end
   end
 
   def wine_params

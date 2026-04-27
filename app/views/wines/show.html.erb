@@ -7,8 +7,8 @@
   <p><strong>Description:</strong> <%= @wine.description %></p>
 <% end %>
 
-<%= link_to 'Edit', edit_wine_path(@wine) %>
-<%= link_to 'Delete', @wine, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Edit', edit_wine_path(@wine) if current_user == @wine.user %>
+<%= link_to 'Delete', @wine, method: :delete, data: { confirm: 'Are you sure?' } if current_user == @wine.user %>
 <%= link_to 'Back to Wines', wines_path %>
 
 <% if @posts.any? %>
