@@ -1,0 +1,35 @@
+<h1><%= @user.first_name.titleize %> <%= @user.last_name.titleize %></h1>
+<p><%= @user.email %></p>
+
+<% if current_user == @user %>
+  <%= link_to 'Edit Profile', edit_user_path(@user) %>
+<% end %>
+
+<h2>Posts</h2>
+<% if @user.posts.any? %>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Wine</th>
+      <th>Rating</th>
+      <th></th>
+    </tr>
+    <% @user.posts.order(created_at: 'DESC').each do |post| %>
+      <tr>
+        <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= post.wine.name if post.wine.present? %></td>
+        <td><%= post.rating %>/10</td>
+        <% if current_user == @user %>
+          <td>
+            <%= link_to 'Edit', edit_post_path(post) %>
+            <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>No posts yet.</p>
+<% end %>
+
+<%= link_to 'Log Out', logout_path, method: :delete %>

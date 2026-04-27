@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
 
   # Users
-  get  'users'              => 'users#index'
-  get  'users/new'          => 'users#new'
-  post 'users'              => 'users#create'
-  get  'users/welcome_user' => 'users#welcome_user'
-  get  'users/new_user_profile' => 'users#new_user_profile'
+  resources :users do
+    collection do
+      get :welcome_user
+      get :new_user_profile
+    end
+  end
 
   # Wines
   resources :wines
