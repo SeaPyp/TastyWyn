@@ -1,0 +1,13 @@
+alice_review:
+  title: Great Cabernet
+  text: This is a wonderful wine with deep flavors.
+  rating: 5
+  user: alice
+  wine: cabernet
+
+bob_review:
+  title: Nice Chardonnay
+  text: Crisp and refreshing, perfect for summer.
+  rating: 4
+  user: bob
+  wine: chardonnay

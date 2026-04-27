@@ -1,0 +1,52 @@
+<h1>Wines</h1>
+
+<p><%= link_to "Add New Wine", new_wine_path %></p>
+
+<h3>Browse by Varietal</h3>
+<ul>
+  <% Wine.distinct.where.not(varietal: [nil, ""]).pluck(:varietal).sort.each do |varietal| %>
+    <li><%= link_to varietal, wines_path(varietal: varietal) %></li>
+  <% end %>
+</ul>
+
+<h3>Browse by Origin</h3>
+<ul>
+  <% Wine.distinct.where.not(origin: [nil, ""]).pluck(:origin).sort.each do |origin| %>
+    <li><%= link_to origin, wines_path(origin: origin) %></li>
+  <% end %>
+</ul>
+
+<% if params[:varietal].present? || params[:origin].present? %>
+  <p>
+    Filtering by:
+    <strong><%= params[:varietal] %></strong>
+    <strong><%= params[:origin] %></strong>
+    &mdash; <%= link_to "Clear filters", wines_path %>
+  </p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Varietal</th>
+      <th>Vintage</th>
+      <th>Origin</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @wines.each do |wine| %>
+      <tr>
+        <td><%= link_to wine.name, wine_path(wine) %></td>
+        <td><%= wine.varietal %></td>
+        <td><%= wine.vintage %></td>
+        <td><%= wine.origin %></td>
+        <td>
+          <%= link_to "Edit", edit_wine_path(wine) %>
+          <%= link_to "Delete", wine_path(wine), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

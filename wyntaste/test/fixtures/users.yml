@@ -1,0 +1,13 @@
+alice:
+  first_name: Alice
+  last_name: Sommelier
+  email: alice@example.com
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  expertise_level: beginner
+
+bob:
+  first_name: Bob
+  last_name: Vintner
+  email: bob@example.com
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  expertise_level: intermediate

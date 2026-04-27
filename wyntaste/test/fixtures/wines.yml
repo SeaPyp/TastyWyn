@@ -1,0 +1,20 @@
+cabernet:
+  name: Opus One
+  varietal: Cabernet Sauvignon
+  vintage: 2018
+  origin: Napa Valley
+  description: A bold and complex red wine
+
+chardonnay:
+  name: Cakebread Chardonnay
+  varietal: Chardonnay
+  vintage: 2020
+  origin: Napa Valley
+  description: A crisp and refreshing white wine
+
+pinot:
+  name: Domaine Drouhin Pinot Noir
+  varietal: Pinot Noir
+  vintage: 2019
+  origin: Willamette Valley
+  description: An elegant and silky red wine

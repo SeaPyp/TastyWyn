@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: wyntaste_development
+  username: postgres
+  password: postgres
+
+test:
+  <<: *default
+  database: wyntaste_test
+  username: postgres
+  password: postgres
+
+production:
+  <<: *default
+  database: wyntaste_production
+  username: wyntaste
+  password: <%= ENV["WYNTASTE_DATABASE_PASSWORD"] %>

@@ -1,0 +1,9 @@
+<h1>Welcome to WynTaste, <%= current_user.first_name %>!</h1>
+
+<p>Your account has been created successfully. Start exploring wines and sharing your reviews.</p>
+
+<ul>
+  <li><%= link_to "Browse Wines", wines_path %></li>
+  <li><%= link_to "View Posts", posts_path %></li>
+  <li><%= link_to "Your Profile", user_path(current_user) %></li>
+</ul>

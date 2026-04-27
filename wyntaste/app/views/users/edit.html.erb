@@ -1,0 +1,45 @@
+<h1>Edit Profile</h1>
+
+<% if @user.errors.any? %>
+  <div class="validation-errors">
+    <h2><%= pluralize(@user.errors.count, "error") %> prevented your profile from being updated:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @user, local: true) do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "New Password (leave blank to keep current)" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Profile" %>
+  </div>
+<% end %>
+
+<p><%= link_to "Back to Profile", user_path(@user) %></p>

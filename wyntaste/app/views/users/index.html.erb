@@ -1,0 +1,26 @@
+<h1>Users</h1>
+
+<% if @users.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Expertise</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.expertise_level&.capitalize %></td>
+          <td><%= user.created_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No users found.</p>
+<% end %>

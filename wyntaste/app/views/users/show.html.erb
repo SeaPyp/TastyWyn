@@ -1,0 +1,22 @@
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Expertise Level:</strong> <%= @user.expertise_level&.capitalize %></p>
+<p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+
+<% if @user == current_user %>
+  <p><%= link_to "Edit Profile", edit_user_path(@user) %></p>
+<% end %>
+
+<h2>Posts</h2>
+<% if @user.posts.any? %>
+  <ul>
+    <% @user.posts.order(created_at: :desc).each do |post| %>
+      <li><%= link_to post.title, post_path(post) %> — <%= post.created_at.strftime("%b %d, %Y") %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No posts yet.</p>
+<% end %>
+
+<p><%= link_to "Back to Users", users_path %></p>

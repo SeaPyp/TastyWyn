@@ -1,0 +1,12 @@
+<h1><%= @wine.name %></h1>
+
+<p><strong>Varietal:</strong> <%= @wine.varietal %></p>
+<p><strong>Vintage:</strong> <%= @wine.vintage %></p>
+<p><strong>Origin:</strong> <%= @wine.origin %></p>
+<p><strong>Description:</strong> <%= @wine.description %></p>
+
+<p>
+  <%= link_to "Edit", edit_wine_path(@wine) %>
+  <%= link_to "Delete", wine_path(@wine), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  <%= link_to "Back to Wines", wines_path %>
+</p>

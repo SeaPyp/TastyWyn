@@ -1,0 +1,41 @@
+<% if @wine.errors.any? %>
+  <div class="validation-errors">
+    <h2><%= pluralize(@wine.errors.count, "error") %> prevented this wine from being saved:</h2>
+    <ul>
+      <% @wine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @wine, local: true) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :varietal %>
+    <%= f.text_field :varietal %>
+  </div>
+
+  <div>
+    <%= f.label :vintage %>
+    <%= f.number_field :vintage %>
+  </div>
+
+  <div>
+    <%= f.label :origin %>
+    <%= f.text_field :origin %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

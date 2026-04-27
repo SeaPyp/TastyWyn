@@ -11,3 +11,13 @@
 /log/*
 !/log/.keep
 /tmp
+wyntaste/tmp/
+wyntaste/log/
+*.secret*
+local_secret*
+
+wyntaste/tmp/
+wyntaste/log/
+wyntaste/config/database.yml
+*.secret*
+local_secret*
