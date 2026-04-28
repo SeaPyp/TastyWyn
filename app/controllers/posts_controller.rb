@@ -10,11 +10,6 @@ class PostsController < ApplicationController
     @post = Post.new(user_id: current_user.id)
   end
 
-  def new_user_profile
-    @user = current_user
-    @posts = Post.all.order(created_at: 'ASC')
-  end
-
   def edit
     @post = Post.find(params[:id])
     authorize_owner!(@post)
@@ -24,7 +19,7 @@ class PostsController < ApplicationController
     @user = current_user
     @post = @user.posts.new(post_params)
     if @post.save
-      redirect_to "/posts/#{@post.id}"
+      redirect_to post_path(@post)
     else
       render :new
     end
@@ -48,7 +43,7 @@ class PostsController < ApplicationController
     return if performed?
 
     @post.destroy
-    redirect_to '/users'
+    redirect_to users_path
   end
 
   private

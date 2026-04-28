@@ -1,12 +1,21 @@
 <h1>Log In</h1>
 
-<p>Welcome Back!  Please log in:</p>
-<form action="/login" method="post">
-  <label>Email</label>
-  <input name="email" type="email" placeholder="Email">
-  <br><br>
-  <label>Password</label>
-  <input name="password" type="password" placeholder="Password">
-  <br><br>
-  <button>Login</button><%= link_to '<button>Sign up</button>'.html_safe, '/' %>
-</form>
+<p>Welcome Back! Please log in:</p>
+
+<% if flash[:alert] %>
+  <div class="notice"><%= flash[:alert] %></div>
+<% end %>
+
+<%= form_with(url: login_path) do |f| %>
+  <p>
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Email" %>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password, placeholder: "Password" %>
+  </p>
+
+  <%= f.submit "Login" %>
+  <%= link_to "Sign Up", root_path %>
+<% end %>

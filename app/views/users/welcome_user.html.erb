@@ -1,14 +1,10 @@
-
-
 <h1>Welcome <%= @user.first_name %></h1>
 
-<p>Thanks for joining wyn app!  This is your number one
-resource for tracking your wines and learning while you do so.</p>
+<p>Thanks for joining WynTaste! This is your number one resource for tracking your wines.</p>
 
-<p>To get started, please add a picture of yourself, and then you can move onto
-learning more about wine and creating your first post!</p>
+<p>To get started, add a picture of yourself, then move onto creating your first post!</p>
 
 <p>To upload your picture, please click <strong>here</strong>.</p>
-<%= link_to '<button>Later</button>'.html_safe, '/users/new_user_profile' %>
 
-<%= link_to 'Log Out', logout_path, method: :delete %>
+<%= link_to 'Later', new_user_profile_users_path %>
+<%= link_to 'Log Out', logout_path, data: { turbo_method: :delete } %>

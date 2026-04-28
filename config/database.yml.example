@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: wyntaste_app_development
+  username: postgres
+  password: your_postgres_password
+  host: localhost
+
+test:
+  <<: *default
+  database: wyntaste_app_test
+  username: postgres
+  password: your_postgres_password
+  host: localhost
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: wyntaste_app_production

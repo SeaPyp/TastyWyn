@@ -1,4 +1,4 @@
-class ChangeWinesDescriptionToTextType < ActiveRecord::Migration
+class ChangeWinesDescriptionToTextType < ActiveRecord::Migration[7.1]
   def up
     change_column :wines, :description, :text
   end

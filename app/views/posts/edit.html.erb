@@ -1,6 +1,5 @@
-<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
+<h1>Edit Post</h1>
 
 <%= render 'form' %>
 
-<% end %>
-
+<%= link_to 'Cancel', post_path(@post) %>

@@ -1,24 +1,22 @@
 <h1>Welcome <%= current_user.first_name.titleize %></h1>
 
-<%= link_to '<button>Create New Post</button>'.html_safe, new_post_path %>
+<%= link_to 'Create New Post', new_post_path %>
 
 <h2>Current Users are busy drinking:</h2>
 
 <table>
   <tr>
-      <th>Title</th>
-      <th>Text</th>
-      <th colspan='3'></th>
-    </tr>
-
+    <th>Title</th>
+    <th>Tasting Notes</th>
+    <th></th>
+  </tr>
   <% @posts.each do |post| %>
     <tr>
       <td><%= post.title %></td>
       <td><%= post.text %></td>
       <td><%= link_to 'Show', post_path(post) %></td>
     </tr>
-
   <% end %>
 </table>
 
-<%= link_to 'Log Out', logout_path, method: :delete %>
+<%= link_to 'Log Out', logout_path, data: { turbo_method: :delete } %>

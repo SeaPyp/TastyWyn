@@ -1,49 +1,30 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
-
-  # Do not eager load code on boot.
+  config.enable_reloading = true
   config.eager_load = false
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_region => ENV['AWS_REGION'],
-    :s3_credentials => {
-      :bucket => ENV['S3_BUCKET_NAME'],
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-    }
-  }
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
+  config.server_timing = true
+
+  # Active Storage
+  config.active_storage.service = :local
+
+  # Caching
   config.action_controller.perform_caching = false
+  config.cache_store = :null_store
 
-  # Don't care if the mailer can't send.
+  # Mailer
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_caching = false
 
-  # Print deprecation notices to the Rails logger.
+  # Deprecations
   config.active_support.deprecation = :log
+  config.active_support.disallowed_deprecation = :raise
+  config.active_support.disallowed_deprecation_warnings = []
 
-  # Raise an error on page load if there are pending migrations.
+  # Migrations
   config.active_record.migration_error = :page_load
+  config.active_record.verbose_query_logs = true
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
+  # Assets
   config.assets.debug = true
-
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
-
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
-
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.assets.quiet = true
 end

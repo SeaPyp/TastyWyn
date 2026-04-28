@@ -1,4 +1,4 @@
-class Wine < ActiveRecord::Base
+class Wine < ApplicationRecord
   belongs_to :user
   has_many :posts
   has_many :users, :through => :posts

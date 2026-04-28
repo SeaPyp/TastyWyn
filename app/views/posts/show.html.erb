@@ -1,9 +1,4 @@
-<h1>Posts#show</h1>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<h1><%= @post.title %></h1>
 
 <% if @post.wine.present? %>
   <p>
@@ -13,23 +8,15 @@
   </p>
 <% end %>
 
-<p>
-  <strong>Rating:</strong>
-  <%= @post.rating %>/10
-</p>
+<p><strong>Rating:</strong> <%= @post.rating %>/10</p>
 
-<p>
-  <%= image_tag @post.image.url(:large) if @post.image.present? %>
-</p>
+<%= image_tag @post.image if @post.image.attached? %>
 
-<p>
-  <strong>Text:</strong>
-  <%= @post.text %>
-</p>
+<p><strong>Tasting Notes:</strong> <%= @post.text %></p>
 
 <% if current_user == @post.user %>
   <%= link_to 'Edit', edit_post_path(@post) %>
-  <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Delete', post_path(@post), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
 <% end %>
 
 <h2>Comments</h2>
@@ -38,21 +25,19 @@
     <strong><%= comment.user.first_name %> <%= comment.user.last_name %>:</strong>
     <%= comment.body %>
     <% if current_user == comment.user %>
-      <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: 'Delete this comment?' } %>
+      <%= link_to 'Delete', post_comment_path(@post, comment), data: { turbo_method: :delete, turbo_confirm: 'Delete this comment?' } %>
     <% end %>
   </p>
 <% end %>
 
 <h2>Add a comment:</h2>
-<%= form_for([@post, @post.comments.build]) do |f| %>
+<%= form_with(model: [@post, @post.comments.build]) do |f| %>
   <p>
     <%= f.label :body, "Your comment" %><br>
     <%= f.text_area :body, rows: 3 %>
   </p>
-  <p>
-    <%= f.submit "Post Comment" %>
-  </p>
+  <%= f.submit "Post Comment" %>
 <% end %>
 
-<%= link_to 'Log Out', logout_path, method: :delete %>
-<%= link_to 'Profile', '/users' %>
+<%= link_to 'Log Out', logout_path, data: { turbo_method: :delete } %>
+<%= link_to 'My Profile', user_path(current_user) %>

@@ -18,13 +18,15 @@
     <tbody>
       <% @wines.each do |wine| %>
         <tr>
-          <td><%= link_to wine.name, wine %></td>
+          <td><%= link_to wine.name, wine_path(wine) %></td>
           <td><%= wine.varietal %></td>
           <td><%= wine.vintage %></td>
           <td><%= wine.origin %></td>
           <td>
-            <%= link_to 'Edit', edit_wine_path(wine) if current_user == wine.user %>
-            <%= link_to 'Delete', wine, method: :delete, data: { confirm: 'Are you sure?' } if current_user == wine.user %>
+            <% if current_user == wine.user %>
+              <%= link_to 'Edit', edit_wine_path(wine) %>
+              <%= link_to 'Delete', wine_path(wine), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+            <% end %>
           </td>
         </tr>
       <% end %>
